@@ -3,8 +3,8 @@ import { uploadDocument } from "../api.js";
 import { Spinner, ErrorBanner } from "./ui.jsx";
 import "./UploadPanel.css";
 
-const ACCEPTED = ".pdf,.docx,.doc,.txt,.md,.rst,.csv,.json,.xml,.html";
-const ACCEPTED_LABEL = "PDF · DOCX · TXT · MD · CSV · JSON · XML · HTML";
+const ACCEPTED = ".pdf,.docx,.doc,.txt,.md,.rst,.csv,.json,.xml,.html,.xlsx,.xls";
+const ACCEPTED_LABEL = "PDF · DOCX · TXT · MD · CSV · JSON · XML · HTML · XLSX";
 
 export default function UploadPanel({ onUploaded }) {
   const [dragging, setDragging]   = useState(false);
