@@ -1,0 +1,231 @@
+/* ── App Shell ───────────────────────────────────────────────────────────── */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 18px;
+  height: 50px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.header__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.header__title {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.header__pill {
+  font-size: 10px;
+  color: var(--text-3);
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2px 8px;
+}
+
+/* ── Body (3-col grid) ───────────────────────────────────────────────────── */
+.body {
+  display: grid;
+  grid-template-columns: 300px 1fr 360px;
+  grid-template-rows: 1fr;
+  height: calc(100vh - 50px);
+  overflow: hidden;
+}
+/* ── Sidebar ─────────────────────────────────────────────────────────────── */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.sidebar__section {
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.sidebar__pad {
+  padding: 12px 14px;
+}
+.sidebar__pad--search {
+  padding: 12px 14px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Tabs */
+.sidebar__tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.sidebar__tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 9px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-3);
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.sidebar__tab:hover { color: var(--text-2); }
+.sidebar__tab--active { color: var(--indigo); border-bottom-color: var(--indigo); }
+.sidebar__tab-count {
+  background: var(--indigo-dim);
+  color: var(--indigo);
+  font-size: 9px;
+  font-family: var(--mono);
+  padding: 0 5px;
+  border-radius: 10px;
+  border: 1px solid rgba(99,102,241,0.3);
+}
+
+.sidebar__tab-body {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Center (viewer) ─────────────────────────────────────────────────────── */
+.center {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+}
+
+/* ── Chat col ───────────────────────────────────────────────────────────── */
+.chat-col {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  overflow: hidden;
+}
+.chat-col .panel-title {
+  flex-shrink: 0;
+}
+.chat-col > .chat-col__body {
+  flex: 1;
+  overflow: hidden;
+}
+/* Resizable body grid — columns set via inline style */
+.body {
+  display: grid;
+  /* fallback; overridden by inline style */
+  grid-template-columns: 260px 4px 1fr 4px 320px;
+  grid-template-rows: 1fr;
+  overflow: hidden;
+}
+
+/* Drag handle between columns */
+.drag-handle {
+  width: 4px;
+  cursor: col-resize;
+  background: var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s;
+  position: relative;
+  z-index: 10;
+}
+.drag-handle:hover,
+.drag-handle:active { background: var(--indigo, #6366f1); }
+
+.drag-handle__pip {
+  width: 3px;
+  height: 24px;
+  border-radius: 2px;
+  background: var(--border-2);
+  pointer-events: none;
+}
+.drag-handle:hover .drag-handle__pip,
+.drag-handle:active .drag-handle__pip { background: #fff; opacity: 0.6; }
+
+/* Collapsed column strip */
+.sidebar--collapsed,
+.chat-col--collapsed {
+  overflow: hidden;
+  min-width: 0;
+}
+
+.col-collapsed-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+  gap: 10px;
+  height: 100%;
+}
+
+.col-collapsed-label {
+  font-size: 11px;
+  color: var(--text-3);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+/* Collapse / expand icon buttons in panel titles */
+.col-collapse-btn,
+.col-expand-btn {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-3);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+.col-collapse-btn:hover,
+.col-expand-btn:hover {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--border-2);
+}
+
+/* Make panel-title a flex row so the collapse btn sits at the right edge */
+.panel-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.col-header { flex-shrink: 0; }

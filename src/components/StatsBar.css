@@ -1,0 +1,208 @@
+.stats-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.stats-bar--loading {
+  min-width: 120px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+}
+
+.stats-bar__pulse {
+  display: block;
+  width: 80px;
+  height: 10px;
+  border-radius: 5px;
+  background: var(--color-border-tertiary);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1;   }
+}
+
+/* ── metrics ─────────────────────────────────────────── */
+.stats-bar__metrics {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stats-metric {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  white-space: nowrap;
+}
+
+.stats-metric--embed {
+  align-items: center;
+  gap: 4px;
+}
+
+.stats-metric__icon {
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+  line-height: 1;
+}
+
+.stats-metric__val {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.stats-metric__label {
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+  line-height: 1;
+}
+
+.stats-metric__sep {
+  display: block;
+  width: 1px;
+  height: 12px;
+  background: var(--color-border-tertiary);
+  flex-shrink: 0;
+}
+
+/* ── pills ───────────────────────────────────────────── */
+.stats-bar__pills {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.stats-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px 2px 5px;
+  border-radius: 99px;
+  font-size: 10px;
+  border: 0.5px solid;
+  white-space: nowrap;
+  line-height: 1.6;
+}
+
+.stats-pill--on {
+  background: var(--color-background-success);
+  border-color: var(--color-border-success);
+  color: var(--color-text-success);
+}
+
+.stats-pill--off {
+  background: var(--color-background-secondary);
+  border-color: var(--color-border-tertiary);
+  color: var(--color-text-tertiary);
+}
+
+.stats-pill__dot {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.stats-pill--on  .stats-pill__dot { background: var(--color-text-success); }
+.stats-pill--off .stats-pill__dot { background: var(--color-text-tertiary); opacity: 0.5; }
+
+.stats-pill__label {
+  font-weight: 500;
+}
+
+.stats-pill__val {
+  opacity: 0.75;
+}
+
+/* ── expand button ───────────────────────────────────── */
+.stats-bar__expand-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--border-radius-md);
+  border: 0.5px solid var(--color-border-tertiary);
+  background: transparent;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.12s, color 0.12s, transform 0.15s;
+}
+
+.stats-bar__expand-btn:hover {
+  background: var(--color-background-secondary);
+  color: var(--color-text-primary);
+}
+
+.stats-bar__expand-btn--open {
+  background: var(--color-background-secondary);
+  color: var(--color-text-primary);
+}
+
+.stats-bar__expand-btn--open svg {
+  transform: rotate(180deg);
+}
+
+/* ── detail panel ────────────────────────────────────── */
+.stats-bar__panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 200;
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: 12px 16px;
+  min-width: 300px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.stats-panel__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stats-panel__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 12px;
+}
+
+.stats-panel__label {
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.stats-panel__val {
+  color: var(--color-text-primary);
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
+}
+
+.stats-panel__val--mono {
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.stats-panel__val--small {
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+}

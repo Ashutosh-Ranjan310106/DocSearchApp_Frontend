@@ -1,0 +1,449 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   GraphPage.css
+   Scoped under .gp-* so nothing leaks into App styles.
+   Relies on the same CSS custom properties the main app uses:
+     --bg-0 / --bg-1 / --bg-2     background layers (dark)
+     --border-1 / --border-2      border colors
+     --text-1 / --text-2 / --text-3   text hierarchy
+   Falls back gracefully if vars are absent.
+───────────────────────────────────────────────────────────────────────────── */
+
+/* ── root layout ─────────────────────────────────────────────────────────── */
+.gp-root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--bg-0, #0B0F1A);
+  color: var(--text-1, #e2e8f0);
+  font-family: inherit;
+  overflow: hidden;
+}
+
+/* ── page header ─────────────────────────────────────────────────────────── */
+.gp-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-1, #1e293b);
+  background: var(--bg-1, #111827);
+  flex-shrink: 0;
+}
+
+.gp-back {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border-1, #1e293b);
+  background: transparent;
+  color: var(--text-2, #94a3b8);
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+.gp-back:hover {
+  background: var(--bg-2, #1e293b);
+  color: var(--text-1, #e2e8f0);
+}
+
+.gp-header__title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.gp-header__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-1, #e2e8f0);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.gp-header__pill {
+  font-size: 10px;
+  color: var(--text-3, #475569);
+  background: var(--bg-2, #1e293b);
+  border: 1px solid var(--border-1, #1e293b);
+  border-radius: 999px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+.gp-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── body (three columns) ────────────────────────────────────────────────── */
+.gp-body {
+  display: grid;
+  grid-template-columns: 220px 1fr 220px;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── shared button ───────────────────────────────────────────────────────── */
+.gp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: 6px;
+  border: 1px solid var(--border-1, #1e293b);
+  background: #6366F1;
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.gp-btn:hover:not(:disabled) { opacity: 0.85; }
+.gp-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.gp-btn--ghost {
+  background: transparent;
+  color: var(--text-2, #94a3b8);
+}
+.gp-btn--ghost:hover:not(:disabled) {
+  background: var(--bg-2, #1e293b);
+  color: var(--text-1, #e2e8f0);
+}
+
+/* ── left control panel ──────────────────────────────────────────────────── */
+.gp-panel {
+  border-right: 1px solid var(--border-1, #1e293b);
+  background: var(--bg-1, #111827);
+  overflow-y: auto;
+  padding-bottom: 16px;
+}
+
+.gp-panel__section {
+  padding: 12px 14px 0;
+}
+
+.gp-panel__label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-3, #475569);
+  margin-bottom: 6px;
+}
+
+/* ── search input ────────────────────────────────────────────────────────── */
+.gp-search-wrap {
+  position: relative;
+}
+.gp-search-icon {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.gp-input {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--bg-0, #0B0F1A);
+  border: 1px solid var(--border-1, #1e293b);
+  border-radius: 6px;
+  color: var(--text-1, #e2e8f0);
+  font-size: 12px;
+  padding: 6px 8px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.gp-input:focus { border-color: #6366F1; }
+.gp-search-input { padding-left: 26px; }
+
+/* ── select ──────────────────────────────────────────────────────────────── */
+.gp-select {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--bg-0, #0B0F1A);
+  border: 1px solid var(--border-1, #1e293b);
+  border-radius: 6px;
+  color: var(--text-1, #e2e8f0);
+  font-size: 12px;
+  padding: 6px 8px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.gp-select:focus { border-color: #6366F1; }
+
+/* ── range slider ────────────────────────────────────────────────────────── */
+.gp-range {
+  width: 100%;
+  accent-color: #6366F1;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+/* ── type chips ──────────────────────────────────────────────────────────── */
+.gp-chip-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gp-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-2, #94a3b8);
+  font-size: 11px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s, border-color 0.12s;
+}
+.gp-chip:hover {
+  background: var(--bg-2, #1e293b);
+}
+.gp-chip--on {
+  background: color-mix(in srgb, var(--chip-color) 12%, transparent);
+  border-color: color-mix(in srgb, var(--chip-color) 35%, transparent);
+  color: var(--text-1, #e2e8f0);
+}
+
+.gp-chip__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--chip-color);
+  flex-shrink: 0;
+}
+.gp-chip__label {
+  flex: 1;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+.gp-chip__count {
+  font-size: 10px;
+  color: var(--text-3, #475569);
+  min-width: 18px;
+  text-align: right;
+}
+
+/* ── stats block ─────────────────────────────────────────────────────────── */
+.gp-stats {
+  margin-top: 4px;
+}
+.gp-stats__row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-3, #475569);
+  padding: 3px 0;
+}
+.gp-stats__row span:last-child {
+  color: var(--text-2, #94a3b8);
+}
+.gp-stats__warn {
+  font-size: 10px;
+  color: #F59E0B;
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+/* ── canvas area ─────────────────────────────────────────────────────────── */
+.gp-canvas-wrap {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-0, #0B0F1A);
+  background-image: radial-gradient(circle, #1e293b 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* inner fill — sized by ResizeObserver, SVG uses its measured px size */
+.gp-canvas-inner {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: hidden;
+}
+
+.gp-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--text-3, #475569);
+  font-size: 13px;
+}
+
+/* spin class for refresh icon */
+.gp-spin {
+  animation: gp-spin 0.8s linear infinite;
+}
+
+.gp-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: rgba(11, 15, 26, 0.75);
+  backdrop-filter: blur(4px);
+  color: var(--text-2, #94a3b8);
+  font-size: 13px;
+  z-index: 10;
+}
+.gp-overlay--error { color: #f87171; }
+
+.gp-spinner {
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--border-1, #1e293b);
+  border-top-color: #6366F1;
+  border-radius: 50%;
+  animation: gp-spin 0.7s linear infinite;
+}
+@keyframes gp-spin { to { transform: rotate(360deg); } }
+
+.gp-hint {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: var(--text-3, #334155);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* ── right detail column ─────────────────────────────────────────────────── */
+.gp-detail-col {
+  border-left: 1px solid var(--border-1, #1e293b);
+  background: var(--bg-1, #111827);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.gp-detail {
+  padding: 10px 14px;
+  flex: 1;
+}
+
+.gp-detail--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  color: var(--text-3, #475569);
+  font-size: 12px;
+  text-align: center;
+}
+
+.gp-detail__type-badge {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+.gp-detail__name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-1, #e2e8f0);
+  margin: 0 0 6px;
+  word-break: break-word;
+  line-height: 1.35;
+}
+
+.gp-detail__desc {
+  font-size: 11px;
+  color: var(--text-2, #94a3b8);
+  line-height: 1.55;
+  margin: 0 0 10px;
+}
+
+.gp-detail__stat-row {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+.gp-detail__stat {
+  font-size: 11px;
+  color: var(--text-3, #475569);
+}
+.gp-detail__stat strong {
+  color: var(--text-1, #e2e8f0);
+  font-size: 13px;
+}
+
+.gp-detail__section {
+  margin-top: 12px;
+}
+.gp-detail__section-title {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-3, #475569);
+  margin: 0 0 6px;
+}
+
+.gp-detail__doc-pill {
+  font-size: 11px;
+  color: var(--text-2, #94a3b8);
+  background: var(--bg-2, #1e293b);
+  border: 1px solid var(--border-1, #1e293b);
+  border-radius: 4px;
+  padding: 3px 7px;
+  margin-bottom: 4px;
+  word-break: break-all;
+}
+
+.gp-detail__rel {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border-1, #1e293b);
+  font-size: 11px;
+}
+.gp-detail__rel:last-child { border-bottom: none; }
+.gp-detail__rel-dir  { color: #6366F1; font-weight: 700; flex-shrink: 0; }
+.gp-detail__rel-label { color: var(--text-3, #475569); flex-shrink: 0; font-style: italic; }
+.gp-detail__rel-peer  { color: var(--text-2, #94a3b8); word-break: break-all; }
+
+/* ── header graph button (used in App.jsx) ───────────────────────────────── */
+.header__graph-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 6px;
+  border: 1px solid #6366F1;
+  background: color-mix(in srgb, #6366F1 12%, transparent);
+  color: #a5b4fc;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+.header__graph-btn:hover {
+  background: color-mix(in srgb, #6366F1 22%, transparent);
+  color: #c7d2fe;
+}
